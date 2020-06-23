@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="692f1fd65393415fa17b21d2ea116898" Name="Diagram1" ZoomLevel="81">
+        <EntityTypeShape EntityType="DatasModel.Ar" Width="1.5" PointX="0.75" PointY="1.125" />
+        <EntityTypeShape EntityType="DatasModel.Egyetem" Width="1.5" PointX="0.75" PointY="4.25" />
+        <EntityTypeShape EntityType="DatasModel.Felhasznalo" Width="1.5" PointX="3" PointY="6.625" />
+        <EntityTypeShape EntityType="DatasModel.FelhasznaloKurzu" Width="1.5" PointX="5.25" PointY="5.375" />
+        <EntityTypeShape EntityType="DatasModel.Kurzu" Width="1.5" PointX="3" PointY="3" />
+        <EntityTypeShape EntityType="DatasModel.Mentett" Width="1.5" PointX="5.25" PointY="10" />
+        <EntityTypeShape EntityType="DatasModel.Targy" Width="1.5" PointX="0.75" PointY="7.5" />
+        <AssociationConnector Association="DatasModel.FK_Kurzus_ToAr" />
+        <AssociationConnector Association="DatasModel.FK_Felhasznalo_ToEgyetem" />
+        <AssociationConnector Association="DatasModel.FK_Kurzus_ToEgyetem" />
+        <AssociationConnector Association="DatasModel.FK_FelhasznaloKurzus_ToFelhasznalo" />
+        <AssociationConnector Association="DatasModel.FK_Mentett_ToFelhasznalo" />
+        <AssociationConnector Association="DatasModel.FK_FelhasznaloKurzus_ToKurzus" />
+        <AssociationConnector Association="DatasModel.FK_Kurzus_ToTargy" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

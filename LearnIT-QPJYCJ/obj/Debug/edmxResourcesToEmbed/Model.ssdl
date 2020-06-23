@@ -1,0 +1,187 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DatasModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Ar">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="Ertek" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Egyetem">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="Nev" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Felhasznalo">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="VezetekNev" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="KeresztNev" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Kor" Type="int" Nullable="false" />
+    <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Jelszo" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="EgyetemID" Type="int" Nullable="false" />
+    <Property Name="Penz" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="FelhasznaloKurzus">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="FelhasznaloID" Type="int" Nullable="false" />
+    <Property Name="KurzusID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Kurzus">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="EgyetemID" Type="int" Nullable="false" />
+    <Property Name="ArID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Mentett">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="FelhasznaloID" Type="int" Nullable="false" />
+    <Property Name="Remember me" Type="bit" Nullable="false" />
+    <Property Name="Auto login" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Targy">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="Nev" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Felhasznalo_ToEgyetem">
+    <End Role="Egyetem" Type="Self.Egyetem" Multiplicity="1" />
+    <End Role="Felhasznalo" Type="Self.Felhasznalo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Egyetem">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Felhasznalo">
+        <PropertyRef Name="EgyetemID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FelhasznaloKurzus_ToFelhasznalo">
+    <End Role="Felhasznalo" Type="Self.Felhasznalo" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="FelhasznaloKurzus" Type="Self.FelhasznaloKurzus" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Felhasznalo">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="FelhasznaloKurzus">
+        <PropertyRef Name="FelhasznaloID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FelhasznaloKurzus_ToKurzus">
+    <End Role="Kurzus" Type="Self.Kurzus" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="FelhasznaloKurzus" Type="Self.FelhasznaloKurzus" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Kurzus">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="FelhasznaloKurzus">
+        <PropertyRef Name="KurzusID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Kurzus_ToAr">
+    <End Role="Ar" Type="Self.Ar" Multiplicity="1" />
+    <End Role="Kurzus" Type="Self.Kurzus" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Ar">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Kurzus">
+        <PropertyRef Name="ArID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Kurzus_ToEgyetem">
+    <End Role="Egyetem" Type="Self.Egyetem" Multiplicity="1" />
+    <End Role="Kurzus" Type="Self.Kurzus" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Egyetem">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Kurzus">
+        <PropertyRef Name="EgyetemID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Kurzus_ToTargy">
+    <End Role="Targy" Type="Self.Targy" Multiplicity="1" />
+    <End Role="Kurzus" Type="Self.Kurzus" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Targy">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Kurzus">
+        <PropertyRef Name="ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Mentett_ToFelhasznalo">
+    <End Role="Felhasznalo" Type="Self.Felhasznalo" Multiplicity="1" />
+    <End Role="Mentett" Type="Self.Mentett" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Felhasznalo">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Mentett">
+        <PropertyRef Name="FelhasznaloID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DatasModelStoreContainer">
+    <EntitySet Name="Ar" EntityType="Self.Ar" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Egyetem" EntityType="Self.Egyetem" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Felhasznalo" EntityType="Self.Felhasznalo" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="FelhasznaloKurzus" EntityType="Self.FelhasznaloKurzus" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Kurzus" EntityType="Self.Kurzus" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Mentett" EntityType="Self.Mentett" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Targy" EntityType="Self.Targy" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Felhasznalo_ToEgyetem" Association="Self.FK_Felhasznalo_ToEgyetem">
+      <End Role="Egyetem" EntitySet="Egyetem" />
+      <End Role="Felhasznalo" EntitySet="Felhasznalo" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FelhasznaloKurzus_ToFelhasznalo" Association="Self.FK_FelhasznaloKurzus_ToFelhasznalo">
+      <End Role="Felhasznalo" EntitySet="Felhasznalo" />
+      <End Role="FelhasznaloKurzus" EntitySet="FelhasznaloKurzus" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FelhasznaloKurzus_ToKurzus" Association="Self.FK_FelhasznaloKurzus_ToKurzus">
+      <End Role="Kurzus" EntitySet="Kurzus" />
+      <End Role="FelhasznaloKurzus" EntitySet="FelhasznaloKurzus" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Kurzus_ToAr" Association="Self.FK_Kurzus_ToAr">
+      <End Role="Ar" EntitySet="Ar" />
+      <End Role="Kurzus" EntitySet="Kurzus" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Kurzus_ToEgyetem" Association="Self.FK_Kurzus_ToEgyetem">
+      <End Role="Egyetem" EntitySet="Egyetem" />
+      <End Role="Kurzus" EntitySet="Kurzus" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Kurzus_ToTargy" Association="Self.FK_Kurzus_ToTargy">
+      <End Role="Targy" EntitySet="Targy" />
+      <End Role="Kurzus" EntitySet="Kurzus" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Mentett_ToFelhasznalo" Association="Self.FK_Mentett_ToFelhasznalo">
+      <End Role="Felhasznalo" EntitySet="Felhasznalo" />
+      <End Role="Mentett" EntitySet="Mentett" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

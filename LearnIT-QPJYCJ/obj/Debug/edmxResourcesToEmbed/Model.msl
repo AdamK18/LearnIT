@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="DatasModelStoreContainer" CdmEntityContainer="DatasEntities">
+    <EntitySetMapping Name="Ars">
+      <EntityTypeMapping TypeName="DatasModel.Ar">
+        <MappingFragment StoreEntitySet="Ar">
+          <ScalarProperty Name="Ertek" ColumnName="Ertek" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Egyetems">
+      <EntityTypeMapping TypeName="DatasModel.Egyetem">
+        <MappingFragment StoreEntitySet="Egyetem">
+          <ScalarProperty Name="Nev" ColumnName="Nev" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Felhasznaloes">
+      <EntityTypeMapping TypeName="DatasModel.Felhasznalo">
+        <MappingFragment StoreEntitySet="Felhasznalo">
+          <ScalarProperty Name="Penz" ColumnName="Penz" />
+          <ScalarProperty Name="EgyetemID" ColumnName="EgyetemID" />
+          <ScalarProperty Name="Jelszo" ColumnName="Jelszo" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Kor" ColumnName="Kor" />
+          <ScalarProperty Name="KeresztNev" ColumnName="KeresztNev" />
+          <ScalarProperty Name="VezetekNev" ColumnName="VezetekNev" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FelhasznaloKurzus">
+      <EntityTypeMapping TypeName="DatasModel.FelhasznaloKurzu">
+        <MappingFragment StoreEntitySet="FelhasznaloKurzus">
+          <ScalarProperty Name="KurzusID" ColumnName="KurzusID" />
+          <ScalarProperty Name="FelhasznaloID" ColumnName="FelhasznaloID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Kurzus">
+      <EntityTypeMapping TypeName="DatasModel.Kurzu">
+        <MappingFragment StoreEntitySet="Kurzus">
+          <ScalarProperty Name="ArID" ColumnName="ArID" />
+          <ScalarProperty Name="EgyetemID" ColumnName="EgyetemID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Mentetts">
+      <EntityTypeMapping TypeName="DatasModel.Mentett">
+        <MappingFragment StoreEntitySet="Mentett">
+          <ScalarProperty Name="Auto_login" ColumnName="Auto login" />
+          <ScalarProperty Name="Remember_me" ColumnName="Remember me" />
+          <ScalarProperty Name="FelhasznaloID" ColumnName="FelhasznaloID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Targies">
+      <EntityTypeMapping TypeName="DatasModel.Targy">
+        <MappingFragment StoreEntitySet="Targy">
+          <ScalarProperty Name="Nev" ColumnName="Nev" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

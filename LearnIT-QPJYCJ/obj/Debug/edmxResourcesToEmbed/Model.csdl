@@ -1,0 +1,201 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DatasModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="DatasEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Ars" EntityType="DatasModel.Ar" />
+    <EntitySet Name="Egyetems" EntityType="DatasModel.Egyetem" />
+    <EntitySet Name="Felhasznaloes" EntityType="DatasModel.Felhasznalo" />
+    <EntitySet Name="FelhasznaloKurzus" EntityType="DatasModel.FelhasznaloKurzu" />
+    <EntitySet Name="Kurzus" EntityType="DatasModel.Kurzu" />
+    <EntitySet Name="Mentetts" EntityType="DatasModel.Mentett" />
+    <EntitySet Name="Targies" EntityType="DatasModel.Targy" />
+    <AssociationSet Name="FK_Kurzus_ToAr" Association="DatasModel.FK_Kurzus_ToAr">
+      <End Role="Ar" EntitySet="Ars" />
+      <End Role="Kurzu" EntitySet="Kurzus" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Felhasznalo_ToEgyetem" Association="DatasModel.FK_Felhasznalo_ToEgyetem">
+      <End Role="Egyetem" EntitySet="Egyetems" />
+      <End Role="Felhasznalo" EntitySet="Felhasznaloes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Kurzus_ToEgyetem" Association="DatasModel.FK_Kurzus_ToEgyetem">
+      <End Role="Egyetem" EntitySet="Egyetems" />
+      <End Role="Kurzu" EntitySet="Kurzus" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FelhasznaloKurzus_ToFelhasznalo" Association="DatasModel.FK_FelhasznaloKurzus_ToFelhasznalo">
+      <End Role="Felhasznalo" EntitySet="Felhasznaloes" />
+      <End Role="FelhasznaloKurzu" EntitySet="FelhasznaloKurzus" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Mentett_ToFelhasznalo" Association="DatasModel.FK_Mentett_ToFelhasznalo">
+      <End Role="Felhasznalo" EntitySet="Felhasznaloes" />
+      <End Role="Mentett" EntitySet="Mentetts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FelhasznaloKurzus_ToKurzus" Association="DatasModel.FK_FelhasznaloKurzus_ToKurzus">
+      <End Role="Kurzu" EntitySet="Kurzus" />
+      <End Role="FelhasznaloKurzu" EntitySet="FelhasznaloKurzus" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Kurzus_ToTargy" Association="DatasModel.FK_Kurzus_ToTargy">
+      <End Role="Targy" EntitySet="Targies" />
+      <End Role="Kurzu" EntitySet="Kurzus" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Ar">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="Ertek" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Kurzus" Relationship="DatasModel.FK_Kurzus_ToAr" FromRole="Ar" ToRole="Kurzu" />
+  </EntityType>
+  <EntityType Name="Egyetem">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="Nev" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Felhasznaloes" Relationship="DatasModel.FK_Felhasznalo_ToEgyetem" FromRole="Egyetem" ToRole="Felhasznalo" />
+    <NavigationProperty Name="Kurzus" Relationship="DatasModel.FK_Kurzus_ToEgyetem" FromRole="Egyetem" ToRole="Kurzu" />
+  </EntityType>
+  <EntityType Name="Felhasznalo">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="VezetekNev" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="KeresztNev" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Kor" Type="Int32" Nullable="false" />
+    <Property Name="Email" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Jelszo" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="EgyetemID" Type="Int32" Nullable="false" />
+    <Property Name="Penz" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Egyetem" Relationship="DatasModel.FK_Felhasznalo_ToEgyetem" FromRole="Felhasznalo" ToRole="Egyetem" />
+    <NavigationProperty Name="FelhasznaloKurzus" Relationship="DatasModel.FK_FelhasznaloKurzus_ToFelhasznalo" FromRole="Felhasznalo" ToRole="FelhasznaloKurzu" />
+    <NavigationProperty Name="Mentetts" Relationship="DatasModel.FK_Mentett_ToFelhasznalo" FromRole="Felhasznalo" ToRole="Mentett" />
+  </EntityType>
+  <EntityType Name="FelhasznaloKurzu">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="FelhasznaloID" Type="Int32" Nullable="false" />
+    <Property Name="KurzusID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Felhasznalo" Relationship="DatasModel.FK_FelhasznaloKurzus_ToFelhasznalo" FromRole="FelhasznaloKurzu" ToRole="Felhasznalo" />
+    <NavigationProperty Name="Kurzu" Relationship="DatasModel.FK_FelhasznaloKurzus_ToKurzus" FromRole="FelhasznaloKurzu" ToRole="Kurzu" />
+  </EntityType>
+  <EntityType Name="Kurzu">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="EgyetemID" Type="Int32" Nullable="false" />
+    <Property Name="ArID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Ar" Relationship="DatasModel.FK_Kurzus_ToAr" FromRole="Kurzu" ToRole="Ar" />
+    <NavigationProperty Name="Egyetem" Relationship="DatasModel.FK_Kurzus_ToEgyetem" FromRole="Kurzu" ToRole="Egyetem" />
+    <NavigationProperty Name="FelhasznaloKurzus" Relationship="DatasModel.FK_FelhasznaloKurzus_ToKurzus" FromRole="Kurzu" ToRole="FelhasznaloKurzu" />
+    <NavigationProperty Name="Targy" Relationship="DatasModel.FK_Kurzus_ToTargy" FromRole="Kurzu" ToRole="Targy" />
+  </EntityType>
+  <EntityType Name="Mentett">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="FelhasznaloID" Type="Int32" Nullable="false" />
+    <Property Name="Remember_me" Type="Boolean" Nullable="false" />
+    <Property Name="Auto_login" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Felhasznalo" Relationship="DatasModel.FK_Mentett_ToFelhasznalo" FromRole="Mentett" ToRole="Felhasznalo" />
+  </EntityType>
+  <EntityType Name="Targy">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="Nev" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Kurzu" Relationship="DatasModel.FK_Kurzus_ToTargy" FromRole="Targy" ToRole="Kurzu" />
+  </EntityType>
+  <Association Name="FK_Kurzus_ToAr">
+    <End Type="DatasModel.Ar" Role="Ar" Multiplicity="1" />
+    <End Type="DatasModel.Kurzu" Role="Kurzu" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Ar">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Kurzu">
+        <PropertyRef Name="ArID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Felhasznalo_ToEgyetem">
+    <End Type="DatasModel.Egyetem" Role="Egyetem" Multiplicity="1" />
+    <End Type="DatasModel.Felhasznalo" Role="Felhasznalo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Egyetem">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Felhasznalo">
+        <PropertyRef Name="EgyetemID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Kurzus_ToEgyetem">
+    <End Type="DatasModel.Egyetem" Role="Egyetem" Multiplicity="1" />
+    <End Type="DatasModel.Kurzu" Role="Kurzu" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Egyetem">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Kurzu">
+        <PropertyRef Name="EgyetemID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FelhasznaloKurzus_ToFelhasznalo">
+    <End Type="DatasModel.Felhasznalo" Role="Felhasznalo" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="DatasModel.FelhasznaloKurzu" Role="FelhasznaloKurzu" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Felhasznalo">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="FelhasznaloKurzu">
+        <PropertyRef Name="FelhasznaloID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Mentett_ToFelhasznalo">
+    <End Type="DatasModel.Felhasznalo" Role="Felhasznalo" Multiplicity="1" />
+    <End Type="DatasModel.Mentett" Role="Mentett" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Felhasznalo">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Mentett">
+        <PropertyRef Name="FelhasznaloID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FelhasznaloKurzus_ToKurzus">
+    <End Type="DatasModel.Kurzu" Role="Kurzu" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="DatasModel.FelhasznaloKurzu" Role="FelhasznaloKurzu" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Kurzu">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="FelhasznaloKurzu">
+        <PropertyRef Name="KurzusID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Kurzus_ToTargy">
+    <End Type="DatasModel.Targy" Role="Targy" Multiplicity="1" />
+    <End Type="DatasModel.Kurzu" Role="Kurzu" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Targy">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Kurzu">
+        <PropertyRef Name="ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>
